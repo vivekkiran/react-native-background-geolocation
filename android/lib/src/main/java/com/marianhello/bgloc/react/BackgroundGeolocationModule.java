@@ -58,7 +58,7 @@ public class BackgroundGeolocationModule extends ReactContextBaseJavaModule impl
         super(reactContext);
         reactContext.addLifecycleEventListener(this);
 
-        facade = new BackgroundGeolocationFacade(this);
+        facade = new BackgroundGeolocationFacade(reactContext, this);
         logger = LoggerManager.getLogger(BackgroundGeolocationModule.class);
     }
 
@@ -99,8 +99,7 @@ public class BackgroundGeolocationModule extends ReactContextBaseJavaModule impl
     }
 
     private void runOnWebViewThread(Runnable runnable) {
-        // currently there is other thread we can run on
-//        getCurrentActivity().runOnUiThread(runnable);
+        // currently react-native has no other thread we can run on
         new Thread(runnable).start();
     }
 
@@ -306,7 +305,7 @@ public class BackgroundGeolocationModule extends ReactContextBaseJavaModule impl
         logger.debug("Registering headless task");
         facade.registerHeadlessTask(jsFunction);
         success.invoke();
-        }
+    }
 
     private void sendEvent(String eventName, Object params) {
         getReactApplicationContext()
@@ -368,12 +367,6 @@ public class BackgroundGeolocationModule extends ReactContextBaseJavaModule impl
         return facade.getAuthorizationStatus();
     }
 
-    @Override
-    public Activity getActivity() {
-        return getCurrentActivity();
-    }
-
-    @Override
     public Context getContext() {
         return getReactApplicationContext().getBaseContext();
     }
