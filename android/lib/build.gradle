@@ -85,12 +85,9 @@ dependencies {
     debugImplementation project(path: ':react-native-vivekkiran-background-geolocation-common', configuration: "${projectFlavor}Debug")
     implementation 'com.facebook.react:react-native:+'
     implementation "com.google.android.gms:play-services-location:$playServicesVersion"
-    if (projectFlavor == "oreo") {
-        implementation "com.android.support:support-compat:$supportLibVersion"
-        // Because of play services version 11, we need to override it's support-v4 library!
-        // You can check dependency graph: ./gradlew app:dependencies --configuration compile
-        implementation "com.android.support:support-v4:$supportLibVersion"
-    }
+    implementation "com.android.support:support-compat:$supportLibVersion"
+    implementation "com.android.support:support-v4:$supportLibVersion"
+
     implementation 'com.github.tony19:logback-android:1.1.1-9'
     implementation 'org.slf4j:slf4j-api:1.7.21'
     implementation 'com.intentfilter:android-permissions:0.1.6'
