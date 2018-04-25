@@ -115,7 +115,7 @@ public class BackgroundGeolocationModule extends ReactContextBaseJavaModule impl
                     } catch (JSONException e) {
                         logger.error("Configuration error: {}", e.getMessage());
                         
-                        sendError(new PluginException(PluginException.JSON_ERROR, 400));
+                        sendError(new PluginException("JSON ERROR", 400));
                     }
                 } else {
                     logger.debug("Permissions not granted");
