@@ -21,7 +21,7 @@ import com.marianhello.bgloc.BackgroundGeolocationFacade;
 import com.marianhello.bgloc.Config;
 import com.marianhello.bgloc.LocationService;
 import com.marianhello.bgloc.PluginDelegate;
-import com.marianhello.bgloc.PluginError;
+import com.marianhello.bgloc.PluginException;
 import com.marianhello.bgloc.data.BackgroundActivity;
 import com.marianhello.bgloc.data.BackgroundLocation;
 import com.marianhello.logging.LogEntry;
@@ -114,7 +114,8 @@ public class BackgroundGeolocationModule extends ReactContextBaseJavaModule impl
                         facade.start();
                     } catch (JSONException e) {
                         logger.error("Configuration error: {}", e.getMessage());
-                        sendError(new PluginError(PluginError.JSON_ERROR, e.getMessage()));
+                        
+                        sendError(new PluginException(PluginException.JSON_ERROR, e.getMessage()));
                     }
                 } else {
                     logger.debug("Permissions not granted");
@@ -314,10 +315,10 @@ public class BackgroundGeolocationModule extends ReactContextBaseJavaModule impl
                 .emit(eventName, params);
     }
 
-    private void sendError(PluginError error) {
+    private void sendError(PluginException error) {
         WritableMap out = Arguments.createMap();
-        out.putInt("code", error.getErrorCode());
-        out.putString("message", error.getErrorMessage());
+        out.putInt("code", error.getCode());
+        out.putString("message", error.getMessage());
 
         sendEvent(ERROR_EVENT, out);
     }
@@ -342,7 +343,7 @@ public class BackgroundGeolocationModule extends ReactContextBaseJavaModule impl
                     facade.start();
                 } catch (JSONException e) {
                     logger.error("Error while starting facade", e);
-                    sendError(PluginError.SERVICE_ERROR, e.getMessage());
+                    sendError(PluginException.SERVICE_ERROR, e.getMessage());
                 }
             }
 
@@ -368,15 +369,15 @@ public class BackgroundGeolocationModule extends ReactContextBaseJavaModule impl
         return facade.getAuthorizationStatus();
     }
 
-    @Override
-    public Activity getActivity() {
-        return getCurrentActivity();
-    }
+    // @Override
+    // public Activity getActivity() {
+    //     return getCurrentActivity();
+    // }
 
-    @Override
-    public Context getContext() {
-        return getReactApplicationContext().getBaseContext();
-    }
+    // @Override
+    // public Context getContext() {
+    //     return getReactApplicationContext().getBaseContext();
+    // }
 
     @Override
     public void onAuthorizationChanged(int authStatus) {
@@ -412,7 +413,7 @@ public class BackgroundGeolocationModule extends ReactContextBaseJavaModule impl
     }
 
     @Override
-    public void onError(PluginError error) {
+    public void onError(PluginException error) {
         sendError(error);
     }
 }
