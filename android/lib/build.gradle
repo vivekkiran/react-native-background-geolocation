@@ -85,8 +85,8 @@ android {
 }
 
 dependencies {
-    releaseCompile project(path: ':react-native-mauron85-background-geolocation-common', configuration: "${projectFlavor}Release")
-    debugCompile project(path: ':react-native-mauron85-background-geolocation-common', configuration: "${projectFlavor}Debug")
+    releaseImplementation project(path: ':react-native-mauron85-background-geolocation-common', configuration: "${projectFlavor}Release")
+    debugImplementation project(path: ':react-native-mauron85-background-geolocation-common', configuration: "${projectFlavor}Debug")
     implementation 'com.facebook.react:react-native:+'
     implementation "com.google.android.gms:play-services-location:$playServicesVersion"
     if (projectFlavor == "oreo") {
