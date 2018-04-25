@@ -369,12 +369,10 @@ public class BackgroundGeolocationModule extends ReactContextBaseJavaModule impl
         return facade.getAuthorizationStatus();
     }
 
-    // @Override
-    // public Activity getActivity() {
-    //     return getCurrentActivity();
-    // }
+    public Activity getActivity() {
+        return getCurrentActivity();
+    }
 
-    @Override
     public Context getContext() {
         return getReactApplicationContext().getBaseContext();
     }
