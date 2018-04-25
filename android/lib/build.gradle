@@ -81,8 +81,8 @@ android {
 }
 
 dependencies {
-    releaseImplementation project(path: ':react-native-vivekkiran-background-geolocation-common', configuration: "${projectFlavor}Release")
-    debugImplementation project(path: ':react-native-vivekkiran-background-geolocation-common', configuration: "${projectFlavor}Debug")
+    releaseImplementation project(path: ':react-native-vivekkiran-background-geolocation-common')
+    debugImplementation project(path: ':react-native-vivekkiran-background-geolocation-common')
     implementation 'com.facebook.react:react-native:+'
     implementation "com.google.android.gms:play-services-location:$playServicesVersion"
     implementation "com.android.support:support-compat:$supportLibVersion"
